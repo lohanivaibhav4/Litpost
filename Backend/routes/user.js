@@ -2,6 +2,7 @@ import express from 'express'
 import USER from '../models/user.js'
 import jwt from 'jsonwebtoken'
 import { configDotenv } from 'dotenv'
+import authRequired from '../middlewares/authRequired.js'
 configDotenv()
 const router = express.Router()
 
@@ -39,7 +40,7 @@ router.post('/signin', async (req,res)=>{
         //Generate Token
         const token = jwt.sign({id:user._id}, process.env.JWT_SECRET)
         res.cookie('token',token)
-        res.json({token})
+        res.status(200).json({message:"Signed In Successfully!"})
     }catch(error){
         console.log(error)
     }
@@ -49,6 +50,14 @@ router.post('/signin', async (req,res)=>{
 router.post('/signout', async (req, res)=>{
     res.clearCookie('token')
     return res.json({message:"Logged Out Successfully"})
+})
+
+//CHECK-AUTH
+router.get('/check-auth', authRequired, async (req, res)=>{
+    const user = req.user? req.user : null
+    if(!user)
+        return res.status(401).json({error:"Login Required!"})
+    res.status(200).json(user)
 })
 
 const userRouter = router

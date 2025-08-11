@@ -15,7 +15,7 @@ router.get('/:id', async (req, res)=>{
     const blogFound = await BLOG.findById({_id:blogId})
     if(!blogFound)
         return res.status(404).json({error:"Requested Blog Doesn't Exists!"})
-    return res.status(200).json({blogFound})
+    return res.status(200).json(blogFound)
 })
 //POST A NEW BLOG
 router.post('/add-blog', authRequired, async (req, res)=>{

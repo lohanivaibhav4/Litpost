@@ -17,8 +17,8 @@ app.use(express.urlencoded({extended:false}))//Handles FormData
 app.use(cookieParser()) //Parses Cookies
 
 //ROUTES
-app.use('/user', userRouter)
-app.use('/', blogRouter)
+app.use('/api/v1/user', userRouter)
+app.use('/api/v1/', blogRouter)
 
 
 //START_SERVER

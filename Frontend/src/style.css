@@ -1,1 +1,25 @@
-@import "tailwindcss"
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap');
+@import "tailwindcss";
+@theme {
+  --color-primary: #faf7ef;   
+  --color-secondary: #9d0619;
+  
+}
+
+*{
+    box-sizing: border-box;
+    font-family: "Poppins";
+}
+input, button{
+    border: none;
+    outline: none;
+    margin: 0.25em;
+    padding: 0.5em 1em;
+    background-color: #faf7ef;
+    border-radius: 0.25em;
+}
+button{
+    background-color: #b00119;
+    font-family: inherit;
+    color: #faf7ef;
+}
