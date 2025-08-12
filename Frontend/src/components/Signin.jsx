@@ -1,13 +1,22 @@
 import axios from "axios"
+import { useContext } from "react"
+import { AuthContext } from "../contexts/AuthContext"
+import { useNavigate } from "react-router-dom"
 
 export default function Signin(){
+    const { setLoggedIn, setUser } = useContext(AuthContext)
+    const navigate = useNavigate()
+
     function handleSubmit(formData){
         const signinFormData = Object.fromEntries(formData)
         axios
             .post('/api/v1/user/signin',signinFormData)
             .then((res)=>{
-                if(res.status == '200')
-                    console.log(res.data.message)
+                if(res.status == '200'){
+                    setLoggedIn(true)
+                    setUser(res.data.user)
+                    navigate('/add-blog')
+                }
             })
             .catch((err)=> console.log(err))
     }

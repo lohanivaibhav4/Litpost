@@ -1,13 +1,13 @@
 import React from "react"
 import { Navigate, Outlet } from "react-router-dom"
-import axios from "axios"
+import { useContext } from "react"
+import { AuthContext } from "../contexts/AuthContext"
+
 
 export default function AuthRequired(){
-    const [ loggedIn, setLoggedIn ] = React.useState(true)
+    const { loading, loggedIn } = useContext(AuthContext)
 
-    return(
-        <>
-            { loggedIn ? <Outlet /> : < Navigate to='/signin' replace />}
-        </>
-    )
+    if(loading) return <div><h3>Loading...</h3></div>
+    if(!loggedIn) return <Navigate to='/signin' replace />
+    return <Outlet /> 
 }

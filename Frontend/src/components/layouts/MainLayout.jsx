@@ -1,13 +1,18 @@
 import axios from "axios";
+import { useContext } from "react";
 import { NavLink, Outlet } from "react-router-dom";
+import { AuthContext } from "../../contexts/AuthContext";
+
 
 
 export default function MainLayout(){
-    function Signout(){
-        axios
-            .post('/api/v1/user/signout')
-            .then((res)=>console.log(res.data.message))
-            .catch((err)=> console.log(err))
+    const { loggedIn, setLoggedIn } = useContext(AuthContext)
+
+    async function Signout(){
+        await axios
+                .post('/api/v1/user/signout')
+                .then(()=>setLoggedIn(false))
+                .catch((err)=> console.log(err))
     }
     return(
         <>
@@ -17,9 +22,13 @@ export default function MainLayout(){
                         <NavLink to='/'><h1 className="text-3xl font-semibold">LITPOST</h1></NavLink>
                         <NavLink to='/add-blog'><h2>Post</h2></NavLink>
                         <img src="/favicon.png" className="w-16 h-16"/>
-                        <NavLink to='/signup'><h2>Signup</h2></NavLink>
-                        <NavLink to='/signin'><h2 >Signin</h2></NavLink>
-                        <button onClick={Signout}>Signout</button>
+                        {!loggedIn && (
+                            <>
+                                <NavLink to='/signup'><h2>Signup</h2></NavLink>
+                                <NavLink to='/signin'><h2 >Signin</h2></NavLink>
+                            </>
+                        )}
+                        { loggedIn && <button onClick={Signout}>Signout</button> }
                     </ul>
                 </nav>
             </header>

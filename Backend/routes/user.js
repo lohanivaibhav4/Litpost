@@ -55,9 +55,7 @@ router.post('/signout', async (req, res)=>{
 //CHECK-AUTH
 router.get('/check-auth', authRequired, async (req, res)=>{
     const user = req.user? req.user : null
-    if(!user)
-        return res.status(401).json({error:"Login Required!"})
-    res.status(200).json(user)
+    res.status(200).json({user})
 })
 
 const userRouter = router
