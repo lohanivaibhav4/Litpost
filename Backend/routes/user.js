@@ -12,7 +12,7 @@ const router = express.Router()
 router.post('/signup', async (req, res)=>{
     const { name, email, password, profileImageURL } = req.body
     const alreadyExists = await USER.findOne({email})
-    console.log(alreadyExists)
+
     if(alreadyExists){
         return res.status(400).json({error:"User Already Exists!"})
     }
@@ -55,7 +55,9 @@ router.post('/signout', async (req, res)=>{
 //CHECK-AUTH
 router.get('/check-auth', authRequired, async (req, res)=>{
     const user = req.user? req.user : null
-    res.status(200).json({user})
+    const loggedInUser = await USER.findById(user.id)
+    const userName = loggedInUser.name
+    res.status(200).json({user:userName})
 })
 
 const userRouter = router

@@ -4,7 +4,7 @@ import { AuthContext } from "../contexts/AuthContext"
 import { useNavigate } from "react-router-dom"
 
 export default function Signin(){
-    const { setLoggedIn, setUser } = useContext(AuthContext)
+    const { setLoggedIn, setUser, checkAuth } = useContext(AuthContext)
     const navigate = useNavigate()
 
     function handleSubmit(formData){
@@ -20,6 +20,7 @@ export default function Signin(){
             })
             .catch((err)=> console.log(err))
     }
+    checkAuth()
     return (
         <div className="max-w-sm w-full bg-[#faf7ef] border border-[#9d0619] rounded-xl shadow-md p-6 mx-auto my-6">
           <h2 className="text-2xl font-bold text-center text-[#9d0619] mb-4">Signin</h2>

@@ -7,7 +7,7 @@ import { useState } from "react";
 
 
 export default function MainLayout(){
-    const { loggedIn, setLoggedIn } = useContext(AuthContext)
+    const { loggedIn, setLoggedIn, user, setUser } = useContext(AuthContext)
     const [menuOpen, setMenuOpen] = useState(false);
 
     async function Signout(){
@@ -15,10 +15,12 @@ export default function MainLayout(){
                 .post('/api/v1/user/signout')
                 .then(()=>{
                   setLoggedIn(false)
+                  setUser(null)
                   alert('Signed Out Successfully !')
                 })
                 .catch((err)=> console.log(err))
     }
+
     return(
         <>
              <header>
@@ -65,12 +67,16 @@ export default function MainLayout(){
               )}
 
               {loggedIn && (
+                <>
+                <h3>{user}</h3>
                 <button
                   onClick={Signout}
-                  className="!bg-transparent !text-[#9d0619] hover:!text-white hover:!bg-[#9d0619] px-3 py-1 rounded-md transition"
+                  className="!bg-transparent !text-[#9d0619] hover:!text-white
+                  hover:!bg-[#9d0619] px-3 py-1 rounded-md transition"
                 >
                   Signout
                 </button>
+                </>
               )}
             </div>
 

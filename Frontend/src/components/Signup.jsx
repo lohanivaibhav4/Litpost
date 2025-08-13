@@ -1,10 +1,16 @@
 import axios from "axios"
+import { useNavigate } from "react-router-dom"
 export default function Signup(){
+
+  const navigate = useNavigate()
+
     function handleSubmit(formData){
         const signupFormData = Object.fromEntries(formData)
         axios
             .post('/api/v1/user/signup',signupFormData)
-            .then((res)=>console.log(res.data))
+            .then(()=>{
+              navigate('/signin')
+            })
             .catch((err)=> console.log(err))
     }
     return (
