@@ -1,35 +1,42 @@
 import express from 'express'
 const router = express.Router()
+import multer from 'multer'
+const upload = multer({ dest: 'public/uploads/' })
 import BLOG from '../models/blog.js'
 import USER from '../models/user.js'
 import authRequired from '../middlewares/authRequired.js'
 
 //GET ALL BLOGS
 router.get('/', async (req, res)=>{
-    const allBlogs = await BLOG.find({})
+    const allBlogs = await BLOG.find({}).populate('createdBy', 'name')
     res.json({allBlogs})
 })
 //GET BLOG BY ID
 router.get('/:id', async (req, res)=>{
     const blogId = req.params.id
-    const blogFound = await BLOG.findById({_id:blogId})
+    const blogFound = await BLOG.findById({_id:blogId}).populate('createdBy', 'name')
     if(!blogFound)
         return res.status(404).json({error:"Requested Blog Doesn't Exists!"})
     return res.status(200).json(blogFound)
 })
 //POST A NEW BLOG
-router.post('/add-blog', authRequired, async (req, res)=>{
+router.post('/add-blog', upload.single('coverImage'), authRequired, async (req, res)=>{
+
     const { title, body, coverImageURL } = req.body
+    const imagePath = `/uploads/${req.file.filename}`;
     const createdBy = req.user.id
+
     const newBlog = await new BLOG({
         title,
         body, 
-        coverImageURL, 
+        coverImageURL : imagePath, 
         createdBy
     })
     await newBlog
     .save()
-    .then(()=>res.status(201).json({message:"Blog Created Successfully!"}))
+    .then(()=>res.status(201).json({
+        id: newBlog._id,
+        message:"Blog Created Successfully!"}))
     .catch((error)=>{
         return res.json({error})
     })

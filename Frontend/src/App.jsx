@@ -7,6 +7,7 @@ import Signin from "./components/Signin"
 import AddPost from "./components/AddBlog"
 import AuthRequired from "./components/AuthRequired"
 import AuthProvider from "./contexts/AuthContext"
+import BlogDetails from "./components/BlogDetails"
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Home />}/>
+          <Route path=":id" element={<BlogDetails />} />
           <Route path="signup" element={<Signup />}/>
           <Route path="signin" element={<Signin />}/>
             <Route element={<AuthRequired />} >

@@ -4,6 +4,8 @@ import connectDB from './services/connectDB.js'
 import cookieParser from 'cookie-parser'
 import userRouter from './routes/user.js'
 import blogRouter from './routes/blog.js'
+import { fileURLToPath } from "url";
+import path from "path";
 
 const app = express()
 configDotenv()
@@ -15,6 +17,11 @@ connectDB(process.env.MONGO_URI)
 app.use(express.json())//Parses JSON 
 app.use(express.urlencoded({extended:false}))//Handles FormData
 app.use(cookieParser()) //Parses Cookies
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+//SERVE IMAGES
+app.use("/uploads", express.static(path.join(__dirname, "public/uploads")));
 
 //ROUTES
 app.use('/api/v1/user', userRouter)
