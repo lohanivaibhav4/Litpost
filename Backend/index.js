@@ -13,8 +13,10 @@ configDotenv()
 //CORS 
 import cors from 'cors'
 app.use(cors({
-  origin: ['https://litpost-lohanivaibhav4s-projects.vercel.app/'],
-  credentials: true
+  origin: 'https://litpost-lohanivaibhav4s-projects.vercel.app',
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 //CONNECT_DB
