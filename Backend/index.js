@@ -7,6 +7,8 @@ import blogRouter from './routes/blog.js'
 import { fileURLToPath } from "url";
 import path from "path";
 
+const app = express()
+configDotenv()
 
 //CORS 
 import cors from 'cors'
@@ -14,10 +16,6 @@ app.use(cors({
   origin: ['https://litpost-lohanivaibhav4s-projects.vercel.app/'],
   credentials: true
 }));
-
-
-const app = express()
-configDotenv()
 
 //CONNECT_DB
 connectDB(process.env.MONGO_URI)
