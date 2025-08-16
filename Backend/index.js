@@ -9,7 +9,7 @@ import path from "path";
 
 
 //CORS 
-const cors = require('cors');
+import cors from 'cors'
 app.use(cors({
   origin: ['https://litpost-lohanivaibhav4s-projects.vercel.app/'],
   credentials: true
