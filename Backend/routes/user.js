@@ -39,7 +39,11 @@ router.post('/signin', async (req,res)=>{
         if(!isMatched) return res.status(400).json({error:"Invalid Credentials!"})
         //Generate Token
         const token = jwt.sign({id:user._id}, process.env.JWT_SECRET)
-        res.cookie('token',token)
+        res.cookie('token',token,  {
+            httpOnly: true,
+            secure: true,        
+            sameSite: "none",    
+        })
         res.status(200).json({message:"Signed In Successfully!"})
     }catch(error){
         console.log(error)

@@ -18,8 +18,7 @@ export default function Home(){
             })
     },[])
     
-    const backendBaseURL = "http://localhost:5000"; 
-    // const backendBaseURL = import.meta.env.VITE_API_URL; // Not used, but for reference
+    const backendBaseURL = import.meta.env.VITE_API_URL;
     const blogCards = allBlogs.map((blog)=>{
 
         if(loading) return <h2 className="font-bold text-gray-700 text-2xl">Loading...</h2>

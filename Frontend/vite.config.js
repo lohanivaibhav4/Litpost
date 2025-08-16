@@ -6,7 +6,7 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   server:{
     proxy:{
-      "/api/v1":"https://litpost-a795.onrender.com/"
+      "/api/v1":"https://litpost-a795.onrender.com"
     }
   },
   plugins: [

@@ -11,7 +11,9 @@ export default function Signin(){
     function handleSubmit(formData){
         const signinFormData = Object.fromEntries(formData)
         axios
-            .post(`${import.meta.env.VITE_API_URL}/api/v1/user/signin`,signinFormData)
+            .post(`${import.meta.env.VITE_API_URL}/api/v1/user/signin`,signinFormData, {
+              withCredentials: true
+            })
             .then((res)=>{
                 if(res.status == '200'){
                     setLoggedIn(true)
