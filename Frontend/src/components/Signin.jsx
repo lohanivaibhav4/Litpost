@@ -4,8 +4,9 @@ import { AuthContext } from "../contexts/AuthContext"
 import { useNavigate } from "react-router-dom"
 
 export default function Signin(){
-    const { setLoggedIn, setUser, checkAuth } = useContext(AuthContext)
+    const { loggedIn, setLoggedIn, setUser, checkAuth } = useContext(AuthContext)
     const navigate = useNavigate()
+    
 
     function handleSubmit(formData){
         const signinFormData = Object.fromEntries(formData)
@@ -15,12 +16,17 @@ export default function Signin(){
                 if(res.status == '200'){
                     setLoggedIn(true)
                     setUser(res.data.user)
-                    navigate('/')
+                    navigate('/', { replace: true })
                 }
             })
             .catch((err)=> console.log(err))
     }
     checkAuth()
+
+    if(loggedIn) return <h2 className="border border-[#9d0619] text-center text-3xl font-bold rounded-md
+    p-2 focus:outline-none focus:ring-2 focus:ring-[#9d0619] bg-white">
+    You're Already Logged In!</h2>
+
     return (
         <div className="max-w-sm w-full bg-[#faf7ef] border border-[#9d0619] rounded-xl shadow-md p-6 mx-auto my-6">
           <h2 className="text-2xl font-bold text-center text-[#9d0619] mb-4">Signin</h2>
