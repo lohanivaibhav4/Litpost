@@ -12,7 +12,7 @@ export default function MainLayout(){
 
     async function Signout(){
         await axios
-                .post('/api/v1/user/signout')
+                .post(`${import.meta.env.VITE_API_URL}/api/v1/user/signout`)
                 .then(()=>{
                   setLoggedIn(false)
                   setUser(null)

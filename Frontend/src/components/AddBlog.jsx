@@ -8,7 +8,7 @@ export default function AddPost(){
     function handleSubmit(formData){
         const postFormData = Object.fromEntries(formData)
         axios
-        .post('/api/v1/add-blog', postFormData, {
+    .post(`${import.meta.env.VITE_API_URL}/api/v1/add-blog`, postFormData, {
             headers:{ "Content-Type": "multipart/form-data" }
         })
         .then((res)=>{

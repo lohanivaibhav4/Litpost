@@ -7,7 +7,7 @@ export default function Signup(){
     function handleSubmit(formData){
         const signupFormData = Object.fromEntries(formData)
         axios
-            .post('/api/v1/user/signup',signupFormData)
+            .post(`${import.meta.env.VITE_API_URL}/api/v1/user/signup`,signupFormData)
             .then(()=>{
               navigate('/signin')
             })

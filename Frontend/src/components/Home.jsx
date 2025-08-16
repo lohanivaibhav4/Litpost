@@ -8,7 +8,7 @@ export default function Home(){
    
     React.useEffect(()=>{
         axios
-            .get("/api/v1")
+            .get(`${import.meta.env.VITE_API_URL}/api/v1`)
             .then((res=>{
                 setAllBlogs(res.data.allBlogs.reverse())
                 setLoading(false)
@@ -19,6 +19,7 @@ export default function Home(){
     },[])
     
     const backendBaseURL = "http://localhost:5000"; 
+    // const backendBaseURL = import.meta.env.VITE_API_URL; // Not used, but for reference
     const blogCards = allBlogs.map((blog)=>{
 
         if(loading) return <h2 className="font-bold text-gray-700 text-2xl">Loading...</h2>

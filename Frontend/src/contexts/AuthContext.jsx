@@ -11,7 +11,7 @@ export default function AuthProvider({children}){
 
     const checkAuth = async ()=>{
         try{
-            const res = await axios.get('/api/v1/user/check-auth', { withCredentials:true })
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/user/check-auth`, { withCredentials:true })
             if(res.status == 200){
                 setLoggedIn(true)
                 setUser(res.data.user)

@@ -6,17 +6,17 @@ export default function BlogDetails(){
     const [ loading, setLoading ] = useState(true)
     const [ blog, setBlog ] = useState(null)
     const blogId = useParams().id
-    const backendBaseURL = "http://localhost:5000";
+    const backendBaseURL = import.meta.env.VITE_API_URL;
     
     useEffect(()=>{
         axios
-        .get(`/api/v1/${blogId}`)
+        .get(`${backendBaseURL}/api/v1/${blogId}`)
         .then((res)=> {
             setBlog(res.data)
             setLoading(false)
         })
         .catch((err)=> console.log(err))
-    },[blogId])
+    },[blogId,backendBaseURL])
     
 
     if(loading) return <h2 className="font-bold text-gray-700 text-2xl">Loading...</h2>
