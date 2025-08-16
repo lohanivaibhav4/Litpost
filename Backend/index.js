@@ -7,6 +7,15 @@ import blogRouter from './routes/blog.js'
 import { fileURLToPath } from "url";
 import path from "path";
 
+
+//CORS 
+const cors = require('cors');
+app.use(cors({
+  origin: ['https://litpost-lohanivaibhav4s-projects.vercel.app/'],
+  credentials: true
+}));
+
+
 const app = express()
 configDotenv()
 
